@@ -76,5 +76,46 @@ data
 ```
 data.describe()
 ```
+![image](https://github.com/user-attachments/assets/18005fb2-4645-4504-9019-c274d772b6b2)
+```
+import seaborn as sns
+sns.boxplot(x='sepal_width',data=data)
+```
+![image](https://github.com/user-attachments/assets/753e56d5-8097-4d97-a7a4-87c33b72077d)
+```
+q1=data.sepal_width.quantile(0.25)
+q3=data.sepal_width.quantile(0.75)
+iqr=q3-q1
+print(iqr)
+```
+![image](https://github.com/user-attachments/assets/1b4faca9-5b53-47f6-99a1-142da4816d0f)
+```
+rid = data[((data.sepal_width<(q1-1.5*iqr))|(data.sepal_width>(q3+1.5*iqr)))]
+rid['sepal_width']
+```
+![image](https://github.com/user-attachments/assets/210fd1de-53cf-4dc1-bf17-91fd4e0a20fd)
+```
+delid = data[~((data.sepal_width<(q1-1.5*iqr))|(data.sepal_width>(q3+1.5*iqr)))]
+delid
+```
+![image](https://github.com/user-attachments/assets/81519ca0-ffb1-4f7c-a2ee-7534e20b545a)
+```
+sns.boxplot(x='sepal_width',data=delid)
+```
+![image](https://github.com/user-attachments/assets/ad2d80a0-1bf1-460b-a620-4707e3d96725)
+```
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats as stats
+z = np.abs(stats.zscore(data['sepal_width']))
+z
+```
+![image](https://github.com/user-attachments/assets/283f7095-d96c-4d77-a945-092c24150fef)
+```
+df1 = data[z<1]
+df1
+```
+![image](https://github.com/user-attachments/assets/005bf7d7-3e3c-47bf-b493-d0aae7799994)
+
 # Result
-          <<include your Result here>>
+Thus we have cleaned the data and removed the outliers by detection using IQR and Z-score method.
